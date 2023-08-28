@@ -18,7 +18,7 @@ $ cd server
 # Install dependencies
 $ npm install
 
-# Run the server on localhost:5000
+# Run the server on localhost:5001
 $ npm run dev
 
 # Go into the client folder
