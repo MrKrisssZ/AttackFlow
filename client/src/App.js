@@ -19,7 +19,7 @@ function App() {
         </div>
       </BrowserRouter>
     </div>
-  )
+  );
   // const [backendData, setBackendData] = useState([{}])
 
   // useEffect(() => {
@@ -44,4 +44,4 @@ function App() {
   // )
 }
 
-export default App
+export default App;

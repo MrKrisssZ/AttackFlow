@@ -1,6 +1,9 @@
 import React, { useState, useRef } from 'react'
+import { useUsersContext } from '../hooks/useUsersContext'
 
 const UserForm = () => {
+    const { dispatch } = useUsersContext()
+
     const [ userID, setUserID ] = useState('')
     const [ password, setPassword ] = useState('')
     const [ role, setRole ] = useState('user')
@@ -25,12 +28,13 @@ const UserForm = () => {
         }
 
         if (response.ok) {
+            // reset the error
+            setError(null)
             // reset the form
             setUserID('')
             setPassword('')
-            // reset the error
-            setError(null)
-            console.log('new user added', json)
+            // console.log('new user added: ', json)
+            dispatch({ type: 'CREATE_USER', payload: json})
         }
     }
 

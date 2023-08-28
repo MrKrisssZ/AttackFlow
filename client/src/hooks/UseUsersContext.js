@@ -1,12 +1,12 @@
-// import { UserContext } from '../context/UserContext'
-// import { useContext } from 'react'
+import { UsersContext } from '../context/UsersContext'
+import { useContext } from 'react'
 
-// export const useUsersContext = () => {
-//     const context = useContext()
+export const useUsersContext = () => {
+    const context = useContext(UsersContext)
 
-//     if (!context) {
-//         throw Error('useUsersContext must be used inside an UserContextProvider')
-//     }
+    if (!context) {
+        throw Error('useUsersContext must be used inside an UserContextProvider')
+    }
 
-//     return context
-// }
+    return context
+}

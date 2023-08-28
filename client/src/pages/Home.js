@@ -1,14 +1,15 @@
 import { useEffect } from 'react'
-import { useState } from 'react'
-// import { useUsersContext } from '../hooks/UseUsersContext'
+// import { useState } from 'react'
+import { useUsersContext } from '../hooks/useUsersContext'
+
 
 // components
 import UserDetails from '../components/UserDetails'
 import UserForm from '../components/UserForm'
 
 const Home = () => {
-    const [ users, setUsers ] = useState(null)
-    // const { users, dispatch } = useUsersContext()
+    // const [ users, setUsers ] = useState(null)
+    const { users, dispatch } = useUsersContext()
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -16,18 +17,18 @@ const Home = () => {
             const json = await response.json()
 
             if (response.ok) {
-                setUsers(json)
-                // dispatch({ type: 'SET_USERS ', payload:json })
+                // setUsers(json)
+                dispatch({ type: 'SET_USERS', payload: json })
             }
         }
 
         fetchUsers()
-    }, [])
+    }, [dispatch])
 
     return (
         <div className="home">
             <div className='users'>
-                { users && users.map((user) => (
+                { users && users.map(user => (
                     <UserDetails key={ user._id } user={ user }/>
                 ))}
             </div>
