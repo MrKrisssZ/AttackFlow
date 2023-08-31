@@ -4,10 +4,10 @@ import { useUsersContext } from '../hooks/UseUsersContext'
 const UserForm = () => {
     const { dispatch } = useUsersContext()
 
-    const [ userID, setUserID ] = useState('')
-    const [ password, setPassword ] = useState('')
-    const [ role, setRole ] = useState('user')
-    const [ error, setError ] = useState(null)
+    const [userID, setUserID] = useState('')
+    const [password, setPassword] = useState('')
+    const [role, setRole] = useState('user')
+    const [error, setError] = useState(null)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -34,28 +34,36 @@ const UserForm = () => {
             setUserID('')
             setPassword('')
             // console.log('new user added: ', json)
-            dispatch({ type: 'CREATE_USER', payload: json})
+            dispatch({ type: 'CREATE_USER', payload: json })
         }
     }
 
     return (
-        <form className="create" onSubmit={ handleSubmit }>
-            <h3>Add a New User</h3>
-            <label>User ID:</label>
+        <form className="mt-8" onSubmit={handleSubmit}>
+            <h3 className="mb-4 text-2xl font-bold">Add a New User</h3>
+            <label className="block">User ID:</label>
             <input
                 type="text"
+                className="w-full p-2 mb-4 border border-gray-300 rounded"
                 onChange={(e) => setUserID(e.target.value)}
-                value={ userID }
+                value={userID}
             />
 
-            <label>Password:</label>
+            <label className="block">Password:</label>
             <input
                 type="password"
+                className="w-full p-2 mb-4 border border-gray-300 rounded"
                 onChange={(e) => setPassword(e.target.value)}
-                value={ password }
+                value={password}
             />
-            <button>Add User</button>
-            { error && <div className='error'>{ error }</div>}
+            <button className="bg-primary text-white py-2 px-4 font-semibold rounded cursor-pointer">
+                Add User
+            </button>
+            {error && (
+                <div className="mt-5 py-2 px-4 bg-red-100 border border-red-500 text-red-500 rounded">
+                    {error}
+                </div>
+            )}
         </form>
     )
 }
