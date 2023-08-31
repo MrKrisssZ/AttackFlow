@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 // pages & components
 import Home from './pages/Home'
+import Annotation from './pages/Annotation'
 import Navbar from './components/Navbar'
 
 function App() {
@@ -14,6 +15,10 @@ function App() {
             <Route 
               path='/'
               element={<Home />}
+            />
+            <Route
+              path='/annotation'
+              element={<Annotation />}
             />
           </Routes>
         </div>
