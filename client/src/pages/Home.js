@@ -28,8 +28,8 @@ const Home = () => {
     return (
         <div className="home">
             <div className='users'>
-                { users && users.map(user => (
-                    <UserDetails key={ user._id } user={ user }/>
+                {users && users.map(user => (
+                    <UserDetails key={user._id} user={user} />
                 ))}
             </div>
             <UserForm />
