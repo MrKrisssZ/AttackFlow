@@ -11,6 +11,9 @@ const Navbar = () => {
                 <Link to='/annotation'>
                     <h1>Annotation</h1>
                 </Link>
+                <Link to='/report'>
+                    <h1>Report</h1>
+                </Link>
             </div>
         </header>
     )

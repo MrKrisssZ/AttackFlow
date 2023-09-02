@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState } from 'react'
 import { useUsersContext } from '../hooks/UseUsersContext'
 
 const UserForm = () => {
@@ -7,6 +7,7 @@ const UserForm = () => {
     const [ userID, setUserID ] = useState('')
     const [ password, setPassword ] = useState('')
     const [ role, setRole ] = useState('user')
+    
     const [ error, setError ] = useState(null)
 
     const handleSubmit = async (e) => {
@@ -14,7 +15,7 @@ const UserForm = () => {
 
         const user = { userID, password, role }
 
-        const response = await fetch('/api', {
+        const response = await fetch('/api/users', {
             method: 'POST',
             body: JSON.stringify(user),
             headers: {
@@ -39,18 +40,18 @@ const UserForm = () => {
     }
 
     return (
-        <form className="create" onSubmit={ handleSubmit }>
+        <form className='create' onSubmit={ handleSubmit }>
             <h3>Add a New User</h3>
             <label>User ID:</label>
             <input
-                type="text"
+                type='text'
                 onChange={(e) => setUserID(e.target.value)}
                 value={ userID }
             />
 
             <label>Password:</label>
             <input
-                type="password"
+                type='password'
                 onChange={(e) => setPassword(e.target.value)}
                 value={ password }
             />
