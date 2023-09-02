@@ -31,4 +31,7 @@ $ npm install
 $ npm start
 ```
 
+Refer to `env.example` for environment variables.
+
+
 
