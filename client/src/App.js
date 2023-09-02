@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 // pages
 import Home from './pages/Home'
 import Annotation from './pages/Annotation'
+import Visualization from './pages/Visualization'
 import Report from './pages/Report'
 
 // components
@@ -22,6 +23,10 @@ function App() {
             <Route
               path='/annotation'
               element={<Annotation />}
+            />
+            <Route
+              path='/visualization'
+              element={<Visualization />}
             />
             <Route
               path='/report'

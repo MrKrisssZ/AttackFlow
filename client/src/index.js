@@ -4,12 +4,15 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { UsersContextProvider } from './context/UsersContext'
+import { ReportsContextProvider } from './context/ReportsContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <UsersContextProvider>
-      <App />
+      <ReportsContextProvider>
+        <App />
+      </ReportsContextProvider>
     </UsersContextProvider>
   </React.StrictMode>
 );
