@@ -13,7 +13,7 @@ const Home = () => {
 
     useEffect(() => {
         const fetchUsers = async () => {
-            const response = await fetch('/api')
+            const response = await fetch('/api/users')
             const json = await response.json()
 
             if (response.ok) {
@@ -26,9 +26,9 @@ const Home = () => {
     }, [dispatch])
 
     return (
-        <div className="home">
+        <div className='home'>
             <div className='users'>
-                { users && users.map(user => (
+                { users && users.map((user) => (
                     <UserDetails key={ user._id } user={ user }/>
                 ))}
             </div>

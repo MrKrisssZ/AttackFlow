@@ -3,20 +3,22 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const reportSchema = new Schema({
-    filename: {
+    url: {
         type: String,
         required: true,
     },
-    uploadedAt:{
+    uploadedAt: {
         type: Date,
-        default: Date.now,
+        default: Date.now, 
     },
     userID: {
         type: String,
-        required: true
+        required: true,
+    },
+    validated: {
+        type: Boolean,
+        default: false,
     }
-}, { 
-    timestamps: true
-})
+}, {    timestamps: true })
 
 module.exports = mongoose.model('Report', reportSchema)

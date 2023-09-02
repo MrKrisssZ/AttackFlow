@@ -1,8 +1,11 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
-// pages & components
+// pages
 import Home from './pages/Home'
 import Annotation from './pages/Annotation'
+import Report from './pages/Report'
+
+// components
 import Navbar from './components/Navbar'
 
 function App() {
@@ -19,6 +22,10 @@ function App() {
             <Route
               path='/annotation'
               element={<Annotation />}
+            />
+            <Route
+              path='/report'
+              elements={<Report />}
             />
           </Routes>
         </div>
@@ -49,4 +56,4 @@ function App() {
   // )
 }
 
-export default App;
+export default App

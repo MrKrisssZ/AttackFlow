@@ -1,13 +1,13 @@
-import React from "react";
+import React from "react"
 
 // components
-import FileUpload from "../components/FileUpload";
+import ReportUploadForm from "../components/ReportForm"
 
 const Annotation = () => {
     return (
         <>
             {/* <h1>Annotation</h1> */}
-            <FileUpload></FileUpload>
+            <ReportUploadForm></ReportUploadForm>
         </>
     )
 }

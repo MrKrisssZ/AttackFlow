@@ -1,9 +1,9 @@
 require('dotenv').config()
 
 const express = require('express')
-const userRoutes = require('./routes/userRoutes.js')
+const userRoutes = require('./routes/userRoutes')
 // To-do: to add the handling for the report as well
-const reportRoutes = require('./routes/reportRoutes.js')
+const reportRoutes = require('./routes/reportRoutes')
 
 // express app
 const app = express()
@@ -19,7 +19,8 @@ app.use((req, res, next) => {
 const mongoose = require('mongoose')
 
 // routes
-app.use('/api', userRoutes)
+app.use('/api/users', userRoutes)
+app.use('/api/reports', reportRoutes)
 
 // connect to db
 const mongo_uri = process.env.MONGO_URI
