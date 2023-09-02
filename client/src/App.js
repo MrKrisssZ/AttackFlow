@@ -30,7 +30,7 @@ function App() {
             />
             <Route
               path='/report'
-              elements={<Report />}
+              element={<Report />}
             />
           </Routes>
         </div>
