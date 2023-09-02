@@ -11,7 +11,7 @@ const Navbar = () => {
                 <Link to='/annotation'>
                     <h1>Annotation</h1>
                 </Link>
-                <Link to='/visuaulization'>
+                <Link to='/visualization'>
                     <h1>Visualization</h1>
                 </Link>
                 <Link to='/report'>
