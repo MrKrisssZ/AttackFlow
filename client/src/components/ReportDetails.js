@@ -4,7 +4,7 @@ const ReportDetails = ({ report }) => {
     const { dispatch } = useReportsContext()
 
     const handleClick = async () => {
-        const response = await fetch('/api/reports'+report._id, {
+        const response = await fetch('/api/reports/'+report._id, {
             method: 'DELETE'
         })
         const json = await response.json()
