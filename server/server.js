@@ -2,7 +2,6 @@ require('dotenv').config()
 
 const express = require('express')
 const userRoutes = require('./routes/userRoutes')
-// To-do: to add the handling for the report as well
 const reportRoutes = require('./routes/reportRoutes')
 
 // express app
@@ -38,3 +37,27 @@ mongoose.connect(mongo_uri, {
     })
   })
   .catch((error) => console.error("MongoDB connection failed:", error.message))
+
+// modules for OpehAI
+const openai = require('openai')
+const apiKey = process.env.OPENAI_API_KEY
+
+app.post('/chatgpt', async (req, res) => {
+  const prompt = req.body.prompt
+
+  try {
+    const response = await openai.Completion.create({
+      engine: 'gpt-3.5-turbo',
+      messages: [{
+        'role': 'user',
+        'content': prompt
+      }],
+      temperature: 0
+    });
+    res.json({ text: response.choices[0].text });
+  } catch (error) {
+    console.error(error);
+    res.status(400).json({ error: 'An error occurred while processing your request. '});
+  }
+});
+
