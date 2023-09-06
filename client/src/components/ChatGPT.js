@@ -9,8 +9,8 @@ import React, { useState } from 'react'
 import axios from 'axios'
 
 const ChatGPT = () => {
-    const [ input, setInput] = useState('')
-    const [ response, setResponse ] = useState('')
+    const [input, setInput] = useState('')
+    const [response, setResponse] = useState('')
     const apiKey = process.env.OPENAI_API_KEY
 
     const handleSubmit = async (e) => {
@@ -20,7 +20,7 @@ const ChatGPT = () => {
             const client = axios.create({
                 headers: {
                     "Content-Type": 'application/json',
-                    Authorization: 'Bearer '+apiKey,
+                    Authorization: 'Bearer ' + apiKey,
                 }
             });
             const params = {
@@ -41,20 +41,22 @@ const ChatGPT = () => {
     return (
         <div>
             <form onSubmit={handleSubmit}>
-                <label htmlFor='input'>Input:</label>
+                <label className="block mb-2" htmlFor='input'>Input:</label>
                 <input
                     type='text'
                     id='input'
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
+                    className="block w-full px-3 py-2 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:border-primary"
                 />
-                <button type='submit'>Submit</button>
+                <button type='submit'
+                    className="bg-primary text-white py-2 px-4 rounded-lg font-semibold cursor-pointer mb-4">Submit</button>
             </form>
             <div>
-                <h3>Response:</h3>
-                <p>{ response }</p>
+                <h3 className="text-lg font-semibold mb-4">Response:</h3>
+                <p>{response}</p>
             </div>
-        </div>
+        </div >
     );
 };
 

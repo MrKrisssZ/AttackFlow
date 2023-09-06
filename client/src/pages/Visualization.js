@@ -4,9 +4,9 @@ import ChatGPT from "../components/ChatGPT"
 const Visualization = () => {
     return (
         <>
-            <h1>Visualization Section</h1>
+            <h3 className="text-lg font-semibold mb-4">Visualization Section</h3>
             {/* testing for intergrating ChatGPT */}
-            <h1>ChatGPT Integration</h1>
+            <h3 className="text-lg font-semibold mb-4">ChatGPT Integration</h3>
             <main>
                 <ChatGPT />
             </main>
