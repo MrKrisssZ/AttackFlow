@@ -23,17 +23,22 @@ const Home = () => {
         }
 
         fetchUsers()
-    // }, [])
+        // }, [])
     }, [dispatch])
 
     return (
-        <div className='home'>
-            <div className='users'>
-                { users && users.map((user) => (
-                    <UserDetails key={ user._id } user={ user }/>
-                ))}
+        <div className="grid grid-cols-3 gap-8">
+            <div className="col-span-2">
+                <div className="grid gap-4">
+                    {users &&
+                        users.map((user) => (
+                            <UserDetails key={user._id} user={user} />
+                        ))}
+                </div>
             </div>
-            <UserForm />
+            <div className="col-span-1">
+                <UserForm />
+            </div>
         </div>
     )
 }
