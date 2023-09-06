@@ -22,18 +22,18 @@ const Report = () => {
         }
 
         fetchReports()
-    // }, [])
+        // }, [])
     }, [dispatch])
 
     return (
-        <div className='home'>
-            <div className='users'>
-                <h1>Report</h1>
-                { reports && reports.map((report) => (
-                    <ReportDetails key={ report._id } report={ report }/>
+        <div>
+            <div>
+                <h3 className="text-lg font-semibold mb-4">Report</h3>
+                {reports && reports.map((report) => (
+                    <ReportDetails key={report._id} report={report} />
                 ))}
             </div>
-        </div>
+        </div >
     )
 }
 
