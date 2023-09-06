@@ -12,10 +12,10 @@ const Navbar = () => {
                     <h1 class="text-4xl font-bold">Annotation</h1>
                 </Link>
                 <Link to='/visualization'>
-                    <h1>Visualization</h1>
+                    <h1 class="text-4xl font-bold">Visualization</h1>
                 </Link>
                 <Link to='/report'>
-                    <h1>Report</h1>
+                    <h1 class="text-4xl font-bold">Report</h1>
                 </Link>
             </div>
         </header>
