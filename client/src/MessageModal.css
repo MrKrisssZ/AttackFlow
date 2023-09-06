@@ -1,0 +1,28 @@
+.modal-background {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid black;
+  background: white;
+  width: 400px;
+  height: 100px;
+  padding: 20px;
+}
+
+.close {
+  cursor: pointer;
+}
+
+.modal-content {
+  text-align: center;
+}
