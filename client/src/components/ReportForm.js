@@ -53,15 +53,19 @@ const ReportForm = () => {
 
   return (
     <form className="create" onSubmit={handleSubmit}>
-      <h3>Upload an incident report link</h3>
-      <label>Enter the url</label>
+      <h3 className="text-lg font-semibold mb-4">Upload an incident report link</h3>
+      <label className="block mb-2">Enter the url</label>
       <input
         type="url"
         onChange={(e) => setUrl(e.target.value)}
         pattern="https://.*"
         required
+        className="block w-full px-3 py-2 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:border-primary"
       />
-      <button>Upload</button>
+      <button
+        type="submit"
+        className="bg-primary text-white py-2 px-4 rounded-lg font-semibold cursor-pointer"
+      >Upload</button>
       <MessageModal
         isOpen={isModalOpen}
         message={modalMessage}
