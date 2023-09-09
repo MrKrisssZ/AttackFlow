@@ -1,5 +1,8 @@
 import { useState, useMemo } from 'react'
-import { categoriesByTactics, techniqueByCategoriesEnterprise, techniqueByCategoriesMobile, techniqueByCategoriesICS } from '../constants/index.tsx'
+import { categoriesByTactics } from '../constants/index.tsx'
+import { techniqueByCategoriesEnterprise } from '../constants/enterprise.tsx'
+import { techniqueByCategoriesMobile } from '../constants/mobile.tsx'
+import { techniqueByCategoriesICS } from '../constants/ICS.tsx'
 
 const DropdownMenu = () => {
     const [incidentDate, setIncidentDate] = useState(new Date());
