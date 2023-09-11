@@ -1,4 +1,3 @@
-// FileUpload.js
 import React, { useState } from 'react';
 
 function FileUpload() {
@@ -7,37 +6,59 @@ function FileUpload() {
   const [statusMessage, setStatusMessage] = useState('');
 
   const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      setFile(file);
+    const selectedFile = event.target.files[0];
+    if (selectedFile) {
+      setFile(selectedFile);
       const reader = new FileReader();
       reader.onloadend = () => {
         setPreviewUrl(reader.result);
       };
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(selectedFile);
     }
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    
-    setStatusMessage("文件已 '上传'！（注意：此示例未实际上传到任何服务器）");
+    if (!file) {
+      setStatusMessage("Please select a file before uploading.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+      const response = await fetch('/api/files/upload', { // 请根据你的后端配置调整此URL
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setStatusMessage("File successfully uploaded!");
+      } else {
+        setStatusMessage(`Upload failed: ${data.message}`);
+      }
+    } catch (error) {
+      setStatusMessage(`Upload error: ${error}`);
+    }
   };
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
         <label>
-          选择文件：
+          Choose file:
           <input type="file" onChange={handleFileChange} />
         </label>
-        <button type="submit">上传</button>
+        <button type="submit">Upload</button>
       </form>
 
       {previewUrl && (
         <div>
-          <h3>预览：</h3>
+          <h3>Preview:</h3>
           <img src={previewUrl} alt="File Preview" style={{ maxWidth: '300px' }} />
         </div>
       )}
