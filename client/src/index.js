@@ -3,17 +3,17 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { UsersContextProvider } from './context/UsersContext'
 import { ReportsContextProvider } from './context/ReportsContext';
+import { AuthContextProvider } from './context/AuthContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <UsersContextProvider>
+    <AuthContextProvider>
       <ReportsContextProvider>
         <App />
       </ReportsContextProvider>
-    </UsersContextProvider>
+    </AuthContextProvider>
   </React.StrictMode>
 );
 
