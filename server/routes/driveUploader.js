@@ -24,10 +24,14 @@ const uploadToDrive = async (fileName, fileBuffer, mimeType = 'application/pdf')
         bufferStream.push(fileBuffer);
         bufferStream.push(null);
 
+        // Folder ID where you want to upload the file
+        const folderId = '1NNIzWvBy0xS9-00jImN24KsYcU2KeSX9';
+
         const response = await drive.files.create({
             requestBody: {
                 name: fileName,
-                mimeType: mimeType
+                mimeType: mimeType,
+                parents: [folderId] // Ensure the file is uploaded to the specified folder
             },
             media: {
                 mimeType: mimeType,
@@ -36,7 +40,7 @@ const uploadToDrive = async (fileName, fileBuffer, mimeType = 'application/pdf')
         });
 
         if (response.data && response.data.id) {
-            // 此处新添加，为文件添加共享权限
+            // Grant read permissions for the uploaded file to a specific email
             await drive.permissions.create({
                 fileId: response.data.id,
                 requestBody: {
@@ -50,10 +54,9 @@ const uploadToDrive = async (fileName, fileBuffer, mimeType = 'application/pdf')
             throw new Error('Failed to upload the file.');
         }
     } catch (error) {
-        // 输出完整的错误信息
         console.error('Error uploading file:', error);
         throw new Error(`Error uploading file: ${error.message}`);
     }
 }
 
-module.exports = { uploadToDrive, auth }; // 导出 auth 对象供其他文件使用
+module.exports = { uploadToDrive, auth };
