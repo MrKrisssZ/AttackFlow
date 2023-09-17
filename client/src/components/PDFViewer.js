@@ -29,9 +29,28 @@ function PDFViewer() {
   };
 
   return (
-
+    <div className="container">
+      <form>
+        <label>
+          <h2>Upload PDF</h2>
+        </label>
+        <br></br>
+        <input type="file" className="form-control" onChange={handleChange} />
+        <button type="submit" className="btn btn-success">
+          Upload
+        </button>
+      </form>
+      <h2>View PDF</h2>
+      <div className="viewer">
+        {pdfFile && (
+          <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
+            <Viewer fileUrl={pdfFile} plugins={[newplugin]}></Viewer>
+          </Worker>
+        )}
+        {!pdfFile && <>No PDF</>}
+      </div>
+    </div>
   );
 }
 
 export default PDFViewer;
-
