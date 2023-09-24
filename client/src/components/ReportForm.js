@@ -35,19 +35,22 @@ const ReportForm = () => {
 
   const handleFileUpload = async () => {
     const files = fileInputRef.current.files;
-    const formData = new FormData();
-    formData.append("files", files[0]);
+    if (files.length > 0) {
+      const formData = new FormData();
+      for (let i = 0; i < files.length; i++) {
+        formData.append("files", files[i]);
+      }
+      try {
+        const responseGD = await fetch("http://localhost:5005/upload", {
+          method: "POST",
+          body: formData,
+        });
 
-    try {
-      const responseGD = await fetch("http://localhost:5005/upload", {
-        method: "POST",
-        body: formData,
-      });
-
-      const data = await responseGD.json();
-      console.log("upload file: ", data.files);
-    } catch (error) {
-      console.log("error");
+        const data = await responseGD.json();
+        console.log("upload file: ", data.files);
+      } catch (error) {
+        console.log("error");
+      }
     }
   };
 
@@ -89,12 +92,13 @@ const ReportForm = () => {
         <label>Choose a PDF file</label>
         <input
           type="file"
+          multiple
+          ref={fileInputRef}
           onChange={handleChange}
-          //onClick={handleFileUpload}
           pattern="*.pdf"
           required
         />
-        <button>Upload</button>
+        <button onClick={handleFileUpload}>Upload</button>
         {error && <div className="error">{error}</div>}
       </form>
       <h2>View PDF</h2>

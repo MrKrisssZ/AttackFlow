@@ -61,7 +61,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 app1.use(cors());
 
-app.post("/upload", upload.array("files"), async (req, res) => {
+app1.post("/upload", upload.array("files"), async (req, res) => {
   try {
     const auth = new google.auth.GoogleAuth({
       keyFile: "key.json",
@@ -73,18 +73,20 @@ app.post("/upload", upload.array("files"), async (req, res) => {
       auth,
     });
     const uploadFiles = [];
-    const file = req.files[0];
-    const responseGD = await drive.files.create({
-      requestBody: {
-        name: file.originalname,
-        mimeType: file.mimeType,
-        parents: ["1NNIzWvBy0xS9-00jImN24KsYcU2KeSX9"],
-      },
-      media: {
-        body: fs.createReadStream(file.path),
-      },
-    });
-    uploadFiles.push(responseGD.data);
+    for (let i = 0; i < req.files.length; i++) {
+      const file = req.files[i];
+      const responseGD = await drive.files.create({
+        requestBody: {
+          name: file.originalname,
+          mimeType: file.mimeType,
+          parents: ["1NNIzWvBy0xS9-00jImN24KsYcU2KeSX9"],
+        },
+        media: {
+          body: fs.createReadStream(file.path),
+        },
+      });
+      uploadFiles.push(responseGD.data);
+    }
     res.json({ files: uploadFiles });
   } catch (error) {
     console.log("error");
