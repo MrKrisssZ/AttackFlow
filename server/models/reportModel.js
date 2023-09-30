@@ -1,15 +1,16 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
-const Schema = mongoose.Schema
+const Schema = mongoose.Schema;
 
-const reportSchema = new Schema({
+const reportSchema = new Schema(
+  {
     url: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     userID: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     validated: {
         type: Boolean,
@@ -22,4 +23,4 @@ const reportSchema = new Schema({
 }
 )
 
-module.exports = mongoose.model('Report', reportSchema)
+module.exports = mongoose.model("Report", reportSchema);

@@ -8,15 +8,14 @@ const ReportDetails = ({ report, validated }) => {
     // access the user's role
     const userRole = user ? user.role : null
 
-    const handleClick = async () => {
-        const response = await fetch('/api/reports/' + report._id, {
-            method: 'DELETE'
-        })
-        const json = await response.json()
+  const handleClick = async () => {
+    const response = await fetch("/api/reports/" + report._id, {
+      method: "DELETE",
+    });
+    const json = await response.json();
 
-        if (response.ok) {
-            dispatch({ type: 'DELETE_REPORT', payload: json })
-        }
+    if (response.ok) {
+      dispatch({ type: "DELETE_REPORT", payload: json });
     }
     
     console.log('User Object: ', user)
@@ -40,6 +39,6 @@ const ReportDetails = ({ report, validated }) => {
             )}
         </div >
     )
+  }
 }
-
-export default ReportDetails
+export default ReportDetails;
