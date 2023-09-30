@@ -10,6 +10,9 @@ const Navbar = () => {
         logout()
     }
 
+    // access the user's role
+    const userRole = user ? user.role : null
+
     return (
         <header className="bg-white">
             <div className="max-w-7xl mx-auto p-5 flex items-center justify-between">
@@ -22,9 +25,13 @@ const Navbar = () => {
                 <Link to='/visualization'>
                     <h1 className="text-4xl font-bold">Visualization</h1>
                 </Link>
-                <Link to='/report'>
-                    <h1 className="text-4xl font-bold">Report</h1>
-                </Link>
+                {userRole === 'admin' && (
+                    <>
+                        <Link to='/report'>
+                            <h1 className="text-4xl font-bold">Report</h1>
+                        </Link>
+                    </>
+                )}
                 <nav>
                     { user && (
                         <div>
