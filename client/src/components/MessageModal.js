@@ -1,7 +1,7 @@
 import React from "react";
 import "../MessageModal.css";
 
-function MessageModal({ isOpen, message, onClose }) {
+function MessageModal({ isOpen, message, onRequestClose }) {
   if (!isOpen) {
     return null;
   }
@@ -12,7 +12,7 @@ function MessageModal({ isOpen, message, onClose }) {
         <div className="modal-content">
           <p>{message}</p>
           <div className="close">
-            <button onClick={onClose}>Close</button>
+            <button onClick={onRequestClose}>Close</button>
           </div>
         </div>
       </div>
