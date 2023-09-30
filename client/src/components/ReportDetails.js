@@ -39,6 +39,6 @@ const ReportDetails = ({ report, validated }) => {
             )}
         </div >
     )
+  }
 }
-
 export default ReportDetails;

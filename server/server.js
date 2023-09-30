@@ -41,9 +41,7 @@ mongoose
       console.log(`Server started on port ${port}`)
     })
       console.log(`Server started on port ${port}`);
-    });
-  })
-  .catch((error) => console.error("MongoDB connection failed:", error.message))
+    })
   .catch((error) => console.error("MongoDB connection failed:", error.message));
 
 // Google drive
