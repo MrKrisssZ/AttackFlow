@@ -1,27 +1,18 @@
 const express = require('express')
-const {
-    getUsers,
-    getUser,
-    createUser,
-    deleteUser,
-    updateUser
-} = require('../controllers/userController')
+
+// controller functions
+const { loginUser, signupUser } = require('../controllers/userController')
+// const { loginUser, signupUser, retrieveUserRole } = require('../controllers/userController')
 
 const router = express.Router()
 
-// GET all data
-router.get('/', getUsers)
+// login route
+router.post('/login', loginUser)
 
-// GET a single data
-router.get('/:id', getUser)
+// signup route
+router.post('/signup', signupUser)
 
-// POST a new data
-router.post('/', createUser)
-
-// DELETE a new data
-router.delete('/:id', deleteUser)
-
-// UPDATE a new data
-router.patch('/:id', updateUser)
+// retrieve user's role by userID
+// router.get('/role', retrieveUserRole)
 
 module.exports = router

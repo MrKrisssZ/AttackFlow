@@ -1,13 +1,36 @@
+import { useState, useEffect } from "react";
+import { useAuthContext } from "../hooks/UseAuthContext";
+import { Link, useLocation } from "react-router-dom";
+import ReportForm from "../components/ReportForm";
+
 // components
-import ReportUploadForm from '../components/ReportForm'
+import DropdownMenu from "../components/DropDownMenu";
 
 const Annotation = () => {
-    return (
-        <>
-            {/* <h1>Annotation</h1> */}
-            <ReportUploadForm></ReportUploadForm>
-        </>
-    )
-}
+  const { user } = useAuthContext();
+  const location = useLocation();
 
-export default Annotation
+  return (
+    <>
+      {user && (
+        <>
+          <ReportForm></ReportForm>
+          <DropdownMenu></DropdownMenu>
+        </>
+      )}
+      {!user && (
+        <>
+          <h3 className="text-lg font-semibold mb-4">Not signed in</h3>
+          <p>
+            <Link to="/login" state={{ redirectTo: location }}>
+              <button className="text-primary">Login</button>
+            </Link>{" "}
+            to use the annotation function.
+          </p>
+        </>
+      )}
+    </>
+  );
+};
+
+export default Annotation;

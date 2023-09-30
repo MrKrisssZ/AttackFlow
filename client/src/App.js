@@ -5,9 +5,12 @@ import Home from './pages/Home'
 import Annotation from './pages/Annotation'
 import Visualization from './pages/Visualization'
 import Report from './pages/Report'
+import Login from './pages/Login'
+import Signup from './pages/Signup'
 
 // components
 import Navbar from './components/Navbar'
+
 
 function App() {
   return (
@@ -19,6 +22,14 @@ function App() {
             <Route
               path='/'
               element={<Home />}
+            />
+            <Route
+              path='/Login'
+              element={<Login />}
+            />
+            <Route
+              path='/Signup'
+              element={<Signup />}
             />
             <Route
               path='/annotation'
