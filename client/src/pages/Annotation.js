@@ -3,6 +3,7 @@ import { useAuthContext } from '../hooks/UseAuthContext'
 import { Link, useLocation } from 'react-router-dom'
 
 // components
+import ReportForm from "../components/ReportForm";
 import DropdownMenu from '../components/DropDownMenu'
 
 const Annotation = () => {
@@ -13,6 +14,7 @@ const Annotation = () => {
         <>
             { user && 
                 <>
+					<ReportForm></ReportForm>
                     <DropdownMenu></DropdownMenu>
                 </>
             }
@@ -32,4 +34,4 @@ const Annotation = () => {
     )
 }
 
-export default Annotation
+export default Annotation;
