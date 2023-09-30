@@ -114,7 +114,7 @@ const ReportForm = () => {
       <h2>View PDF</h2>
       <div className="viewer">
         {pdfFile && (
-          <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
+          <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js">
             <Viewer fileUrl={pdfFile} plugins={[newplugin]}></Viewer>
           </Worker>
         )}
