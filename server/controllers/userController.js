@@ -14,8 +14,15 @@ const loginUser = async (req, res) => {
 
         // create a token
         const token = createToken(user._id)
-        res.status(200).json({ userID, token })
 
+        // Retrieve the user's role from the database
+        const usersRole = await User.findOne({ userID });
+
+        // Include the role in the response
+        const { role } = usersRole;
+
+        res.status(200).json({ userID, token, role })
+        // res.status(200).json({ userID, token })
     } catch (error) {
         res.status(400).json({ error: error.message })
     }
@@ -31,7 +38,9 @@ const signupUser = async (req, res) => {
         // create a token
         const token = createToken(user._id)
 
-        res.status(200).json({ userID, token })
+        const role = 'user'
+
+        res.status(200).json({ userID, token, role })
     } catch (error) {
         res.status(400).json({ error: error.message })
     }
