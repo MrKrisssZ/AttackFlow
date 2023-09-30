@@ -24,7 +24,7 @@ const ReportDetails = ({ report, validated }) => {
 
     return (
         <div className="bg-white rounded-lg my-5 mx-auto p-5 relative shadow-md">
-            <p className="text-lg font-semibold mb-2"><strong>URL: </strong>{report.url}</p>
+            <p className="text-lg font-semibold mb-2"><strong>Filename: </strong>{report.url}</p>
             <p className="text-sm text-gray-600"><strong>Reported by: </strong>{report.userID}</p>
             <p className="text-sm text-gray-600"><strong>Reported: </strong>{report.createdAt}</p>
             <p className="text-sm text-gray-600"><strong>Last Modified: </strong>{report.updatedAt}</p>
