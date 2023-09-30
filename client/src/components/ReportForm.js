@@ -1,9 +1,16 @@
-import React, { useState } from "react";
-import MessageModal from "./MessageModal.js";
+import React, { useState, useRef } from "react";
+import { Worker, Viewer } from "@react-pdf-viewer/core";
+import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
+import "@react-pdf-viewer/core/lib/styles/index.css";
+import "@react-pdf-viewer/default-layout/lib/styles/index.css";
+
+import MessageModal from "./MessageModal";
+import { useAuthContext } from '../hooks/UseAuthContext'
 
 const ReportForm = () => {
-  // To-do: get the userID
-  const [userID, setUserID] = useState("user01");
+  const { user } = useAuthContext();
+  const [userID, setUserID] = useState(user.userID);
+  const [pdfFile, setPdfFile] = useState(null);
   const [url, setUrl] = useState("");
   const [uploadedAt, setUploadedAt] = useState(Date());
   const [validated, setValidated] = useState(false);
