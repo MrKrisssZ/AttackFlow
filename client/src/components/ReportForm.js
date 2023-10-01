@@ -19,13 +19,6 @@ import {
   Tooltip
 } from "@react-pdf-viewer/core";
 
-// interface Note {
-//   id: number;
-//   content: string;
-//   highlightAreas: HighlightArea[];
-//   quote: string;
-// }
-
 const ReportForm = () => {
   const { user } = useAuthContext();
   const userID = user.userID;
@@ -39,12 +32,12 @@ const ReportForm = () => {
   const fileInputRef = useRef(null);
   const [modalMessage, setModalMessage] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  
+  //pdf highlight and annotate
   const [message, setMessage] = React.useState("")
   const [notes, setNotes] = React.useState([])
   const notesContainerRef = React.useRef(null)
   let noteId = notes ? notes.length : 0
-
   const noteEles = new Map()
   const [currentDoc, setCurrentDoc] = React.useState(null)
 
@@ -174,7 +167,7 @@ const ReportForm = () => {
     renderHighlightContent,
     renderHighlights,
   });
-
+  
   const { jumpToHighlightArea } = highlightPluginInstance
 
   useEffect(() => {

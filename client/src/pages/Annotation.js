@@ -7,30 +7,34 @@ import ReportForm from "../components/ReportForm";
 import DropdownMenu from "../components/DropDownMenu";
 
 const Annotation = () => {
-    const { user } = useAuthContext();
-    const location = useLocation();
+  const { user } = useAuthContext();
+  const location = useLocation();
 
-    return (
+  return (
+    <div style={{ display: 'flex' }}>
+      {user && (
         <>
-            {user && (
-                <>
-                    <ReportForm></ReportForm>
-                    <DropdownMenu></DropdownMenu>
-                </>
-            )}
-            {!user && (
-                <>
-                    <h3 className="text-lg font-semibold mb-4">Not signed in</h3>
-                    <p>
-                        <Link to="/login" state={{ redirectTo: location }}>
-                            <button className="text-primary">Login</button>
-                        </Link>{" "}
-                        to use the annotation function.
-                    </p>
-                </>
-            )}
+          <div style={{ flex: 7, marginRight: "1rem" }}>
+            <ReportForm></ReportForm>
+          </div>
+          <div style={{ flex: 3 }}>
+            <DropdownMenu></DropdownMenu>
+          </div>
         </>
-    );
+      )}
+      {!user && (
+        <>
+          <h3 className="text-lg font-semibold mb-4">Not signed in</h3>
+          <p>
+            <Link to="/login" state={{ redirectTo: location }}>
+              <button className="text-primary">Login</button>
+            </Link>{" "}
+            to use the annotation function.
+          </p>
+        </>
+      )}
+    </div>
+  );
 };
 
 export default Annotation;
