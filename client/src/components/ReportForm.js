@@ -11,9 +11,6 @@ import {
   HighlightArea,
   highlightPlugin,
   MessageIcon,
-  RenderHighlightContentProps,
-  RenderHighlightTargetProps,
-  RenderHighlightsProps,
 } from '@react-pdf-viewer/highlight';
 import {
   Button,
@@ -22,19 +19,19 @@ import {
   Tooltip
 } from "@react-pdf-viewer/core";
 
-interface Note {
-  id: number;
-  content: string;
-  highlightAreas: HighlightArea[];
-  quote: string;
-}
+// interface Note {
+//   id: number;
+//   content: string;
+//   highlightAreas: HighlightArea[];
+//   quote: string;
+// }
 
 const ReportForm = () => {
   const { user } = useAuthContext();
-  const [userID, setUserID] = useState(user.userID);
+  const userID = user.userID;
   const [pdfFile, setPdfFile] = useState(null);
   const [url, setUrl] = useState("");
-  const [uploadedAt, setUploadedAt] = useState(Date());
+  const uploadedAt = useState(Date());
   const [validated, setValidated] = useState(false);
   const fileType = ["application/pdf"];
   const newplugin = defaultLayoutPlugin();
@@ -46,8 +43,7 @@ const ReportForm = () => {
   const [message, setMessage] = React.useState("")
   const [notes, setNotes] = React.useState([])
   const notesContainerRef = React.useRef(null)
-  const noteId = notes ? notes.length : 0
-  // let noteId = notes.length
+  let noteId = notes ? notes.length : 0
 
   const noteEles = new Map()
   const [currentDoc, setCurrentDoc] = React.useState(null)
