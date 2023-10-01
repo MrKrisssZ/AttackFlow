@@ -33,5 +33,13 @@ $ npm start
 
 Refer to `env.example` for environment variables.
 
+# Apple M1/M2 chips
+One of the library is not supported on Mac M1/M2 chips with following error message
+Bcrypt error on Mac - Incompatible architecture (have 'x86_64', need 'arm64e')
 
-
+```bash
+# Using yarn instead of npm.
+$ sudo rm -rf node_modules package-lock.json
+yarn install
+yarn start
+```
