@@ -11,11 +11,15 @@ const Annotation = () => {
   const location = useLocation();
 
   return (
-    <>
+    <div style={{ display: 'flex' }}>
       {user && (
         <>
-          <ReportForm></ReportForm>
-          <DropdownMenu></DropdownMenu>
+          <div style={{ flex: 7, marginRight: "1rem" }}>
+            <ReportForm></ReportForm>
+          </div>
+          <div style={{ flex: 3 }}>
+            <DropdownMenu></DropdownMenu>
+          </div>
         </>
       )}
       {!user && (
@@ -29,7 +33,7 @@ const Annotation = () => {
           </p>
         </>
       )}
-    </>
+    </div>
   );
 };
 

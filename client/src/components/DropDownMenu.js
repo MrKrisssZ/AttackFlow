@@ -1304,6 +1304,9 @@ const DropdownMenu = () => {
               <option value="Mobile">Mobile</option>
               <option value="ICS">ICS</option>
             </select>
+          </div>
+          <div>
+            <p>Categories</p>
             <select
               defaultValue={categories}
               onChange={(e) => setCategories(e.target.value)}
@@ -1312,7 +1315,8 @@ const DropdownMenu = () => {
             >
               {categoryOptions}
             </select>
-
+          </div>
+          <div>
             <p>Techniques</p>
             <select
               defaultValue={techniques}
