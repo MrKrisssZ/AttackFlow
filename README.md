@@ -40,6 +40,6 @@ Bcrypt error on Mac - Incompatible architecture (have 'x86_64', need 'arm64e')
 ```bash
 # Using yarn instead of npm.
 $ sudo rm -rf node_modules package-lock.json
-yarn install
-yarn start
+$ yarn install
+$ yarn start
 ```
