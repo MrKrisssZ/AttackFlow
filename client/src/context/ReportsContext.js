@@ -15,7 +15,7 @@ export const reportsReducer = (state, action) => {
             }
         case 'DELETE_REPORT':
             return {
-                reports: state.reports.filter((r) => r._id != action.payload._id)
+                reports: state.reports.filter((r) => r._id !== action.payload._id)
             }
         default:
             return state

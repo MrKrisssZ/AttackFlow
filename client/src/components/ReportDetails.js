@@ -1,12 +1,11 @@
 import { useReportsContext } from '../hooks/UseReportsContext'
-import { useAuthContext } from '../hooks/UseAuthContext'
+// import { useAuthContext } from '../hooks/UseAuthContext'
 
 const ReportDetails = ({ report, validated }) => {
     const { dispatch } = useReportsContext()
-    const { user } = useAuthContext()
-
+    // const { user } = useAuthContext()
     // access the user's role
-    const userRole = user ? user.role : null
+    // const userRole = user ? user.role : null
 
     const handleClick = async () => {
         const response = await fetch('/api/reports/' + report._id, {
