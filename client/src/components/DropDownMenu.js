@@ -180,6 +180,19 @@ const DropdownMenu = ( descFromReport ) => {
           <button type="submit">Add</button>
         </form>
       </div>
+      <div>
+        <h1>Stored annotation</h1>
+        <ol>
+          {annotations.map((annotation, index) => (
+            <li key={index}>
+              <strong>Description:</strong>{ annotation.desc }<br />
+              <strong>Tacttics:</strong>{ annotation.tactics }<br />
+              <strong>Categories:</strong>{ annotation.categories }<br />
+              <strong>Techniques:</strong>{ annotation.techniques }<br />
+            </li>
+          ))}
+        </ol>
+      </div>
     </>
   );
 };
