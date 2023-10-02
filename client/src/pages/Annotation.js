@@ -18,9 +18,9 @@ const Annotation = () => {
     // console.log('report data from child',descFromReport)
   }
 
-  useEffect(() => {
-    console.log('descFromReport useEffect', descFromReport);
-  }, [descFromReport]);
+  // useEffect(() => {
+  //   console.log('descFromReport useEffect', descFromReport);
+  // }, [descFromReport]);
 
   return (
     <div style={{ display: 'flex' }}>
