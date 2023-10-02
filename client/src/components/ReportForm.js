@@ -19,7 +19,7 @@ import {
   Tooltip
 } from "@react-pdf-viewer/core";
 
-const ReportForm = () => {
+const ReportForm = ({ sendDescToParent }) => {
   const { user } = useAuthContext();
   const userID = user.userID;
   const [pdfFile, setPdfFile] = useState(null);
@@ -51,7 +51,9 @@ const ReportForm = () => {
   // }, [desc])
 
   const saveDesc = (selectedText) => {
+    console.log('saveDesc', selectedText)
     setDesc(selectedText)
+    sendDescToParent(selectedText)
   }
 
   const handleDocumentLoad = (e) => {

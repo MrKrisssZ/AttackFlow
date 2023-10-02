@@ -4,7 +4,7 @@ import { techniqueByCategoriesEnterprise } from '../constants/enterprise.tsx'
 import { techniqueByCategoriesMobile } from '../constants/mobile.tsx'
 import { techniqueByCategoriesICS } from '../constants/ICS.tsx'
 
-const DropdownMenu = () => {
+const DropdownMenu = ( descFromReport ) => {
   const [incidentDate, setIncidentDate] = useState(new Date());
   const [tactics, setTactics] = useState("Default");
   const [categories, setCategories] = useState("");
@@ -106,13 +106,20 @@ const DropdownMenu = () => {
     }
   }, [tactics, categories]);
 
+  const handleAdd = (e) => {
+    e.preventDefault();
+    console.log('tactics: ', tactics, 'categories: ', categories, 'techniques: ', techniques);
+    console.log('descFromParent', descFromReport.desc)
+    // Add your logic here for handling the "Add" button click
+  };
+
   return (
     <>
       <div>
         <h1>Annotation</h1>
       </div>
       <div>
-        <form>
+        <form onSubmit={handleAdd}>
           <div>
             <p>Tactics</p>
             <select
