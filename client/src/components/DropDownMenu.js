@@ -105,6 +105,7 @@ const DropdownMenu = ( descFromReport ) => {
     }
   }, [tactics, categories]);
 
+  // add the selected text and other attributes to annotations
   const handleAdd = (e) => {
     e.preventDefault();
     // console.log('tactics: ', tactics, 'categories: ', categories, 'techniques: ', techniques);
@@ -125,6 +126,14 @@ const DropdownMenu = ( descFromReport ) => {
       setTechniques('');
     }
   };
+
+  // remove the selected annotation
+  const handleRemove = (indexToRemove) => {
+    // filter out the annotation with specified index
+    const updatedAnnotations = annotations.filter((_, index) => index !== indexToRemove)
+    // update the annotation state
+    setAnnotations(updatedAnnotations)
+  }
 
   useEffect(() => {
     console.log('handleClick', annotations);
@@ -189,6 +198,7 @@ const DropdownMenu = ( descFromReport ) => {
               <strong>Tacttics:</strong>{ annotation.tactics }<br />
               <strong>Categories:</strong>{ annotation.categories }<br />
               <strong>Techniques:</strong>{ annotation.techniques }<br />
+              <button onClick={() => handleRemove(index)}>Remove</button>
             </li>
           ))}
         </ol>
