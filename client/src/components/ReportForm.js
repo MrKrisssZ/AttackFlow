@@ -51,7 +51,7 @@ const ReportForm = ({ sendDescToParent }) => {
   // }, [desc])
 
   const saveDesc = (selectedText) => {
-    console.log('saveDesc', selectedText)
+    // console.log('saveDesc', selectedText)
     setDesc(selectedText)
     sendDescToParent(selectedText)
   }
@@ -89,7 +89,7 @@ const ReportForm = ({ sendDescToParent }) => {
       <Tooltip 
         position={Position.TopRight}
         target={
-          <Button onClick={() => saveDesc(props.selectedText)}>Selected</Button>
+          <Button onClick={() => saveDesc(props.selectedText)}>Select</Button>
         }
         content={() => <div style={{ width: "100px" }}>Add to annotation</div>}
         offset={{ left: 0, top: -8 }}

@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { categoriesByTactics } from '../constants/index.tsx'
 import { techniqueByCategoriesEnterprise } from '../constants/enterprise.tsx'
 import { techniqueByCategoriesMobile } from '../constants/mobile.tsx'
@@ -9,8 +9,7 @@ const DropdownMenu = ( descFromReport ) => {
   const [tactics, setTactics] = useState("Default");
   const [categories, setCategories] = useState("");
   const [techniques, setTechniques] = useState("");
-  const [subtechniques, setSubtechniques] = useState("");
-  const [description, setDescription] = useState("");
+  const [annotations, setAnnotations] = useState([]);
 
   const categoryOptions = useMemo(() => {
     if (!tactics) {
@@ -108,10 +107,28 @@ const DropdownMenu = ( descFromReport ) => {
 
   const handleAdd = (e) => {
     e.preventDefault();
-    console.log('tactics: ', tactics, 'categories: ', categories, 'techniques: ', techniques);
-    console.log('descFromParent', descFromReport.desc)
-    // Add your logic here for handling the "Add" button click
+    // console.log('tactics: ', tactics, 'categories: ', categories, 'techniques: ', techniques);
+    // console.log('descFromParent', descFromReport.desc)
+    if (descFromReport.desc && tactics && categories && techniques) {
+      const annotation = {
+        desc: descFromReport.desc,
+        tactics,
+        categories,
+        techniques,
+      }
+      // add new annotation to the list
+      setAnnotations([...annotations, annotation]);
+
+      // reset form fields
+      setTactics('Default');
+      setCategories('');
+      setTechniques('');
+    }
   };
+
+  useEffect(() => {
+    console.log('handleClick', annotations);
+  }, [annotations]);
 
   return (
     <>
@@ -120,6 +137,10 @@ const DropdownMenu = ( descFromReport ) => {
       </div>
       <div>
         <form onSubmit={handleAdd}>
+          <div>
+            <label>Incident date: </label>
+            <input type='date' id='incidentDate' onChange={(e) => setIncidentDate(e.target.value)} />
+          </div>
           <div>
             <p>Tactics</p>
             <select
@@ -156,7 +177,7 @@ const DropdownMenu = ( descFromReport ) => {
               {techniqueOptions}
             </select>
           </div>
-          <button type="submit">OK</button>
+          <button type="submit">Add</button>
         </form>
       </div>
     </>
