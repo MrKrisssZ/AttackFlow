@@ -19,13 +19,15 @@ import {
   Tooltip
 } from "@react-pdf-viewer/core";
 
-const ReportForm = () => {
+const ReportForm = ({ sendDescToParent }) => {
   const { user } = useAuthContext();
   const userID = user.userID;
   const [pdfFile, setPdfFile] = useState(null);
   const [url, setUrl] = useState("");
   const uploadedAt = useState(Date());
   const [validated, setValidated] = useState(false);
+
+  // pdf viewer
   const fileType = ["application/pdf"];
   const newplugin = defaultLayoutPlugin();
   const [error, setError] = useState(null);
@@ -33,13 +35,26 @@ const ReportForm = () => {
   const [modalMessage, setModalMessage] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   
-  //pdf highlight and annotate
+  // pdf highlight and add notes
   const [message, setMessage] = React.useState("")
   const [notes, setNotes] = React.useState([])
   const notesContainerRef = React.useRef(null)
   let noteId = notes ? notes.length : 0
   const noteEles = new Map()
   const [currentDoc, setCurrentDoc] = React.useState(null)
+
+  // writing annotation file
+  const [ desc, setDesc ] = useState("")
+
+  // useEffect(() => {
+  //   console.log('desc', desc)
+  // }, [desc])
+
+  const saveDesc = (selectedText) => {
+    console.log('saveDesc', selectedText)
+    setDesc(selectedText)
+    sendDescToParent(selectedText)
+  }
 
   const handleDocumentLoad = (e) => {
     setCurrentDoc(e.doc)
@@ -71,6 +86,14 @@ const ReportForm = () => {
         content={() => <div style={{ width: "100px" }}>Add a note</div>}
         offset={{ left: 0, top: -8 }}
       />
+      <Tooltip 
+        position={Position.TopRight}
+        target={
+          <Button onClick={() => saveDesc(props.selectedText)}>Selected</Button>
+        }
+        content={() => <div style={{ width: "100px" }}>Add to annotation</div>}
+        offset={{ left: 0, top: -8 }}
+      />
     </div>
   )
 
@@ -84,6 +107,7 @@ const ReportForm = () => {
           quote: props.selectedText
         }
         setNotes(notes.concat([note]))
+        setDesc(props.selectedText)
         props.cancel()
       }
     }
