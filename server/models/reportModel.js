@@ -7,10 +7,6 @@ const reportSchema = new Schema({
         type: String,
         required: true,
     },
-    uploadedAt: {
-        type: Date,
-        default: Date.now, 
-    },
     userID: {
         type: String,
         required: true,
@@ -19,6 +15,11 @@ const reportSchema = new Schema({
         type: Boolean,
         default: false,
     }
-}, {    timestamps: true })
+},
+    // { timestamps: true }
+    {
+        timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' },
+    }
+)
 
 module.exports = mongoose.model('Report', reportSchema)
