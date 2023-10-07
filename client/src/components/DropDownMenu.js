@@ -129,6 +129,7 @@ const DropdownMenu = ( descFromReport ) => {
     if (descFromReport.desc && tactics && categories && techniques) {
       const annotation = {
         desc: descFromReport.desc,
+        type,
         tactics,
         categories,
         techniques,
@@ -242,10 +243,11 @@ const DropdownMenu = ( descFromReport ) => {
         <ol>
           {annotations.map((annotation, index) => (
             <li key={index}>
-              <strong>Description:</strong>{ annotation.desc }<br />
-              <strong>Tacttics:</strong>{ annotation.tactics }<br />
-              <strong>Categories:</strong>{ annotation.categories }<br />
-              <strong>Techniques:</strong>{ annotation.techniques }<br />
+              <strong>Description: </strong>{ annotation.desc }<br />
+              <strong>Type: </strong>{ annotation.type }<br />
+              <strong>Tactics: </strong>{ annotation.tactics }<br />
+              <strong>Categories: </strong>{ annotation.categories }<br />
+              <strong>Techniques: </strong>{ annotation.techniques }<br />
               <button onClick={() => handleRemove(index)}>Remove</button>
             </li>
           ))}
