@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid'
 import { useState, useMemo, useEffect } from "react";
 import { categoriesByTactics } from '../constants/index.tsx'
 import { techniqueByCategoriesEnterprise } from '../constants/enterprise.tsx'
@@ -11,21 +12,7 @@ const DropdownMenu = ( descFromReport ) => {
   const [techniques, setTechniques] = useState("");
   const [annotations, setAnnotations] = useState([]);
   const [type, setType] = useState("Default")
-
-  // const relationshipTypeOptions = useMemo(() => {
-  //   if (!type) {
-  //     return relationshipType.Default.map((option) => (
-  //       <option value={option} key={option}>
-  //         {option}
-  //       </option>
-  //     ));
-  //   }
-  //   return relationshipType[type].map((option) => (
-  //     <option value={option} key={option}>
-  //       {option}
-  //     </option>
-  //   ));
-  // }, [type]);
+  const [_id] = useState("")
 
   const categoryOptions = useMemo(() => {
     if (!tactics) {
@@ -121,18 +108,30 @@ const DropdownMenu = ( descFromReport ) => {
     }
   }, [tactics, categories]);
 
+  const generateUniqueID = () => {
+    const uniqueID = uuidv4();
+    return type + '--' + uniqueID
+  }
+
   // add the selected text and other attributes to annotations
   const handleAdd = (e) => {
     e.preventDefault();
     // console.log('tactics: ', tactics, 'categories: ', categories, 'techniques: ', techniques);
     // console.log('descFromParent', descFromReport.desc)
-    if (descFromReport.desc && tactics && categories && techniques) {
+    if (descFromReport.desc && type && tactics && categories && techniques) {
+      const currTime = new Date()
+      const formattedTime = currTime.toISOString()
+
       const annotation = {
-        desc: descFromReport.desc,
         type,
+        spec_version: '2.1',
+        created: formattedTime,
+        modified: formattedTime,
+        id: generateUniqueID(),        
         tactics,
         categories,
         techniques,
+        desc: descFromReport.desc
       }
       // add new annotation to the list
       setAnnotations([...annotations, annotation]);
@@ -165,7 +164,13 @@ const DropdownMenu = ( descFromReport ) => {
         <form onSubmit={handleAdd}>
           <div>
             <label>Incident date: </label>
-            <input type='date' id='incidentDate' onChange={(e) => setIncidentDate(e.target.value)} />
+            <input 
+              type='date' 
+              id='incidentDate' 
+              max={new Date().toISOString().split('T')[0]} 
+              value={incidentDate}
+              onChange={(e) => setIncidentDate(e.target.value)}
+            />
           </div>
           <div>
             <p>Type</p>
@@ -245,6 +250,10 @@ const DropdownMenu = ( descFromReport ) => {
             <li key={index}>
               <strong>Description: </strong>{ annotation.desc }<br />
               <strong>Type: </strong>{ annotation.type }<br />
+              <strong>Specification Version: </strong>{ annotation.spec_version }<br />
+              <strong>ID: </strong>{ annotation.id }<br />
+              <strong>Created: </strong>{ annotation.created }<br />
+              <strong>Modified: </strong>{ annotation.modified }<br />
               <strong>Tactics: </strong>{ annotation.tactics }<br />
               <strong>Categories: </strong>{ annotation.categories }<br />
               <strong>Techniques: </strong>{ annotation.techniques }<br />
