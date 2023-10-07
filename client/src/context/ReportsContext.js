@@ -17,6 +17,11 @@ export const reportsReducer = (state, action) => {
             return {
                 reports: state.reports.filter((r) => r._id !== action.payload._id)
             }
+        case 'VALIDATE_REPORT':
+            const updatedReports = state.reports.map((report) =>
+                report._id === action.payload ? { ...report, validated: true } : report
+            );
+            return { ...state, reports: updatedReports };
         default:
             return state
     }
