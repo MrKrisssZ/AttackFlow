@@ -10,6 +10,22 @@ const DropdownMenu = ( descFromReport ) => {
   const [categories, setCategories] = useState("");
   const [techniques, setTechniques] = useState("");
   const [annotations, setAnnotations] = useState([]);
+  const [type, setType] = useState("Default")
+
+  // const relationshipTypeOptions = useMemo(() => {
+  //   if (!type) {
+  //     return relationshipType.Default.map((option) => (
+  //       <option value={option} key={option}>
+  //         {option}
+  //       </option>
+  //     ));
+  //   }
+  //   return relationshipType[type].map((option) => (
+  //     <option value={option} key={option}>
+  //       {option}
+  //     </option>
+  //   ));
+  // }, [type]);
 
   const categoryOptions = useMemo(() => {
     if (!tactics) {
@@ -34,7 +50,7 @@ const DropdownMenu = ( descFromReport ) => {
         </option>
       ));
     }
-    // To-do: create other conditions for the techniques for all different tactics
+    // create other conditions for the techniques for all different tactics
     // tactics: Enterprise
     if (
       tactics === "Enterprise" &&
@@ -135,9 +151,9 @@ const DropdownMenu = ( descFromReport ) => {
     setAnnotations(updatedAnnotations)
   }
 
-  useEffect(() => {
-    console.log('handleClick', annotations);
-  }, [annotations]);
+  // useEffect(() => {
+  //   console.log('handleClick', annotations);
+  // }, [annotations]);
 
   return (
     <>
@@ -149,6 +165,38 @@ const DropdownMenu = ( descFromReport ) => {
           <div>
             <label>Incident date: </label>
             <input type='date' id='incidentDate' onChange={(e) => setIncidentDate(e.target.value)} />
+          </div>
+          <div>
+            <p>Type</p>
+            <select
+              defaultValue={type}
+              onChange={(e) => setType(e.target.value)}
+              name="type"
+              id="type"
+            >
+              <option value="Default">Type</option>
+              <option value="attach-pattern">Attack Pattern</option>
+              <option value="campaign">Campaign</option>
+              <option value="course-of-action">Cost of Action</option>
+              <option value="grouping">Grouping</option>
+              <option value="identity">Identity</option>
+              <option value="incident">Incident</option>
+              <option value="indicator">Indicator</option>
+              <option value="infrastructure">Infrastructure</option>
+              <option value="intrusion-set">Intrusion Set</option>
+              <option value="indicator">Indicator</option>
+              <option value="location">Location</option>
+              <option value="malware">Malware</option>
+              <option value="location">Location</option>
+              <option value="malware-analysis">Malware Analysis</option>
+              <option value="note">Note</option>
+              <option value="observed-data">Observed Data</option>
+              <option value="opinion">Opinion</option>
+              <option value="report">Report</option>
+              <option value="threat-actor">Threat Actor</option>
+              <option value="tool">Tool</option>
+              <option value="vulnerability">Vulnerability</option>
+            </select>
           </div>
           <div>
             <p>Tactics</p>
