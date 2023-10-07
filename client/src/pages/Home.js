@@ -1,45 +1,48 @@
+import React from "react"
 import { useEffect } from 'react'
-// import { useState } from 'react'
-import { useUsersContext } from '../hooks/UseUsersContext'
+import { useReportsContext } from '../hooks/UseReportsContext'
+
 
 
 // components
-import UserDetails from '../components/UserDetails'
-import UserForm from '../components/UserForm'
+import ReportDetails from '../components/ReportDetails'
+
 
 const Home = () => {
-    // const [ users, setUsers ] = useState(null)
-    const { users, dispatch } = useUsersContext()
+    const { reports, dispatch } = useReportsContext()
+
+    // filter validated reports
+    const validatedReports = reports ? reports.filter(report => report.validated) : [];
 
     useEffect(() => {
-        const fetchUsers = async () => {
-            const response = await fetch('/api/users')
+        const fetchReports = async () => {
+            const response = await fetch('/api/reports')
             const json = await response.json()
 
             if (response.ok) {
-                // setUsers(json)
-                dispatch({ type: 'SET_USERS', payload: json })
+                dispatch({ type: 'SET_REPORTS', payload: json })
+
             }
         }
 
-        fetchUsers()
-        // }, [])
+        fetchReports()
+
     }, [dispatch])
 
     return (
-        <div className="grid grid-cols-3 gap-8">
-            <div className="col-span-2">
-                <div className="grid gap-4">
-                    {users &&
-                        users.map((user) => (
-                            <UserDetails key={user._id} user={user} />
-                        ))}
-                </div>
-            </div>
-            <div className="col-span-1">
-                <UserForm />
-            </div>
-        </div>
+        <>
+            <h2 className="text-lg font-semibold mb-4">Validated Reports</h2>
+            {validatedReports.length === 0 ? (
+                <p>No validated reports are available.</p>
+            ) : (
+                validatedReports.map(report => (
+                    <ReportDetails key={report._id} report={report} validated={report.validated} />
+                ))
+            )}
+        </>
+
+
+
     )
 }
 
