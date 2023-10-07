@@ -74,10 +74,39 @@ const updateReport = async(req, res) => {
     res.status(200).json(report)
 }
 
+// validate a Report
+const validateReport = async(req, res) => {
+    const { id } = req.params
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({error: 'No report found'})
+    }
+
+    try {
+        // Fetch the existing report document
+        const existingReport = await Report.findById(id);
+
+        if (!existingReport) {
+            return res.status(404).json({ error: 'No report found' });
+        }
+
+        // Update only the 'validated' property to true
+        existingReport.validated = true;
+
+        // Save the updated report
+        const updatedReport = await existingReport.save();
+
+        res.status(200).json(updatedReport);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+}
+
 module.exports = {
     getReports,
     getReport,
     createReport,
     deleteReport,
-    updateReport
+    updateReport,
+    validateReport
 }
