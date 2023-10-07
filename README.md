@@ -38,7 +38,7 @@ One of the library is not supported on Mac M1/M2 chips with following error mess
 Bcrypt error on Mac - Incompatible architecture (have 'x86_64', need 'arm64e')
 
 ```bash
-# Using yarn instead of npm.
+# Using yarn instead of npm on the server folder.
 $ sudo rm -rf node_modules package-lock.json
 $ yarn install
 $ yarn start
