@@ -27,11 +27,13 @@ const getReport = async(req, res) => {
 
 // create a new report
 const createReport = async(req, res) => {
-    const { url, uploadedAt, userID, validated } = req.body
+    const { url, uploadedAt, userID, validated, annotations } = req.body
+
+    console.log('Annotations Data:', annotations)
 
     // add doc to db
     try {
-        const report = await Report.create({ url, uploadedAt, userID, validated })
+        const report = await Report.create({ url, uploadedAt, userID, validated, annotations })
         res.status(200).json(report)
     } catch (error) {
         res.status(400).json({ error: error.message })

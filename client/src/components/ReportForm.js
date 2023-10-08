@@ -75,7 +75,7 @@ const ReportForm = ({ sendDescToParent, annotationsFromMenu, incidentDateFromMen
   }
 
   const generateAnnotationsJSON = () => {
-    console.log('generating the json file')
+    // console.log('generating the json file')
     const currTime = new Date()
     const formattedTime = currTime.toISOString()
 
@@ -91,9 +91,9 @@ const ReportForm = ({ sendDescToParent, annotationsFromMenu, incidentDateFromMen
     setAnnotations(updatedAnnotations)
   }
 
-  useEffect(() => {
-    console.log('annotations', annotations)
-  }, [annotations])
+  // useEffect(() => {
+  //   console.log('annotations', annotations)
+  // }, [annotations])
 
   const handleDocumentLoad = (e) => {
     setCurrentDoc(e.doc)
@@ -335,7 +335,11 @@ const ReportForm = ({ sendDescToParent, annotationsFromMenu, incidentDateFromMen
   const handleSubmit = async (e) => {
     e.preventDefault();
     
+    console.log('Annotations: ', annotations)
+
     const report = { url, uploadedAt, userID, validated, annotations };
+
+    console.log("Report Object:", report)
 
     const response = await fetch("/api/reports", {
       method: "POST",
