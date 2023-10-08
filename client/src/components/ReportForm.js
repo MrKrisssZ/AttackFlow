@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid'
 import React, { useState, useRef, useEffect } from "react";
 import { Worker, Viewer } from "@react-pdf-viewer/core";
 import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
@@ -19,7 +20,7 @@ import {
   Tooltip
 } from "@react-pdf-viewer/core";
 
-const ReportForm = ({ sendDescToParent }) => {
+const ReportForm = ({ sendDescToParent, annotationsFromMenu, incidentDateFromMenu }) => {
   const { user } = useAuthContext();
   const userID = user.userID;
   const [pdfFile, setPdfFile] = useState(null);
@@ -45,6 +46,13 @@ const ReportForm = ({ sendDescToParent }) => {
 
   // writing annotation file
   const [ desc, setDesc ] = useState("")
+  const [ annotationToDB, setAnnotationToDB ] = useState({
+    type: 'bundle',
+    id: '',
+    created: '',
+    modified: '',
+    objects: [],
+  });
 
   // useEffect(() => {
   //   console.log('desc', desc)
@@ -55,6 +63,37 @@ const ReportForm = ({ sendDescToParent }) => {
     setDesc(selectedText)
     sendDescToParent(selectedText)
   }
+
+  // generate annotation bundle in JSON format when annotationsFromMenu changes
+  useEffect(() => {
+    generateAnnotationsJSON()
+  }, [annotationsFromMenu])
+
+  const generateUniqueID = () => {
+    const uniqueID = uuidv4()
+    return 'bundle--' + uniqueID
+  }
+
+  const generateAnnotationsJSON = () => {
+    console.log('generating the json file')
+    const currTime = new Date()
+    const formattedTime = currTime.toISOString()
+
+    // create a copy of the existing annotationToDB object
+    const updatedAnnotationToDB = { ...annotationToDB }
+
+    updatedAnnotationToDB.id = generateUniqueID()
+    updatedAnnotationToDB.created = formattedTime
+    updatedAnnotationToDB.modified = formattedTime
+    updatedAnnotationToDB.objects = annotationsFromMenu
+
+    // update the state of annotationToDB with the updated object
+    setAnnotationToDB(updatedAnnotationToDB)
+  }
+
+  useEffect(() => {
+    console.log('annotationToDB', annotationToDB)
+  }, [annotationToDB])
 
   const handleDocumentLoad = (e) => {
     setCurrentDoc(e.doc)
@@ -295,8 +334,8 @@ const ReportForm = ({ sendDescToParent }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const report = { url, uploadedAt, userID, validated };
+    
+    const report = { url, uploadedAt, userID, validated, annotationToDB };
 
     const response = await fetch("/api/reports", {
       method: "POST",
