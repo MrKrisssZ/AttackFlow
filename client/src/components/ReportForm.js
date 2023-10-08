@@ -46,7 +46,7 @@ const ReportForm = ({ sendDescToParent, annotationsFromMenu, incidentDateFromMen
 
   // writing annotation file
   const [ desc, setDesc ] = useState("")
-  const [ annotationToDB, setAnnotationToDB ] = useState({
+  const [ annotations, setAnnotations ] = useState({
     type: 'bundle',
     id: '',
     created: '',
@@ -79,21 +79,21 @@ const ReportForm = ({ sendDescToParent, annotationsFromMenu, incidentDateFromMen
     const currTime = new Date()
     const formattedTime = currTime.toISOString()
 
-    // create a copy of the existing annotationToDB object
-    const updatedAnnotationToDB = { ...annotationToDB }
+    // create a copy of the existing annotations object
+    const updatedAnnotations = { ...annotations }
 
-    updatedAnnotationToDB.id = generateUniqueID()
-    updatedAnnotationToDB.created = formattedTime
-    updatedAnnotationToDB.modified = formattedTime
-    updatedAnnotationToDB.objects = annotationsFromMenu
+    updatedAnnotations.id = generateUniqueID()
+    updatedAnnotations.created = formattedTime
+    updatedAnnotations.modified = formattedTime
+    updatedAnnotations.objects = annotationsFromMenu
 
-    // update the state of annotationToDB with the updated object
-    setAnnotationToDB(updatedAnnotationToDB)
+    // update the state of annotations with the updated object
+    setAnnotations(updatedAnnotations)
   }
 
   useEffect(() => {
-    console.log('annotationToDB', annotationToDB)
-  }, [annotationToDB])
+    console.log('annotations', annotations)
+  }, [annotations])
 
   const handleDocumentLoad = (e) => {
     setCurrentDoc(e.doc)
@@ -335,7 +335,7 @@ const ReportForm = ({ sendDescToParent, annotationsFromMenu, incidentDateFromMen
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    const report = { url, uploadedAt, userID, validated, annotationToDB };
+    const report = { url, uploadedAt, userID, validated, annotations };
 
     const response = await fetch("/api/reports", {
       method: "POST",
