@@ -36,7 +36,7 @@ const Home = () => {
                 <p>No validated reports are available.</p>
             ) : (
                 validatedReports.map(report => (
-                    <ReportDetails key={report._id} report={report} validated={report.validated} />
+                    <ReportDetails key={report._id} report={report} validated={report.validated} withButton={false} />
                 ))
             )}
         </>
