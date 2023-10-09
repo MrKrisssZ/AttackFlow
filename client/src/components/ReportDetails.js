@@ -1,11 +1,12 @@
 import { useReportsContext } from '../hooks/UseReportsContext'
-// import { useAuthContext } from '../hooks/UseAuthContext'
+import { useAuthContext } from '../hooks/UseAuthContext'
 
-const ReportDetails = ({ report, validated }) => {
+const ReportDetails = ({ report, validated, withButton }) => {
     const { dispatch } = useReportsContext()
-    // const { user } = useAuthContext()
+    const { user } = useAuthContext()
+
     // access the user's role
-    // const userRole = user ? user.role : null
+    const userRole = user ? user.role : null
 
     const handleClick = async () => {
         const response = await fetch('/api/reports/' + report._id, {
@@ -49,20 +50,17 @@ const ReportDetails = ({ report, validated }) => {
             <p className="text-sm text-gray-600"><strong>Reported: </strong>{report.createdAt}</p>
             <p className="text-sm text-gray-600"><strong>Last Modified: </strong>{report.updatedAt}</p>
             <p className="text-sm text-gray-600"><strong>Validated: </strong>{report.validated.toString()}</p>
-            <div className="flex justify-center rounded-md bg-gray w-24 mt-4">
-                <span onClick={handleClick} className="cursor-pointer bg-gray-200 rounded-full text-gray-600">delete</span>
-            </div>
-            <div className="flex justify-center rounded-md bg-gray w-24 mt-4">
-                <span onClick={handleValidate} className="cursor-pointer bg-gray-200 rounded-full text-gray-600">validate</span>
-            </div>
-            {/* {userRole === 'admin' && (
+
+            {withButton && userRole === 'admin' && (
                 <>
-                    <p className="text-sm text-gray-600"><strong>Validated: </strong>{report.validated.toString()}</p>
-                    <div class="flex justify-center rounded-md bg-gray w-24 mt-4">
+                    <div className="flex justify-center rounded-md bg-gray w-24 mt-4">
                         <span onClick={handleClick} className="cursor-pointer bg-gray-200 rounded-full text-gray-600">delete</span>
                     </div>
+                    <div className="flex justify-center rounded-md bg-gray w-24 mt-4">
+                        <span onClick={handleValidate} className="cursor-pointer bg-gray-200 rounded-full text-gray-600">validate</span>
+                    </div>
                 </>
-            )} */}
+            )}
         </div >
     )
 }

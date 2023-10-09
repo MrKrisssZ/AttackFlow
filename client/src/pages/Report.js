@@ -55,7 +55,7 @@ const Report = () => {
             <div>
                 <h3 className="text-lg font-semibold mb-4">Report</h3>
                 {reports && reports.map((report) => (
-                    <ReportDetails key={report._id} report={report} validated={report.validated} />
+                    <ReportDetails key={report._id} report={report} validated={report.validated} withButton={true}/>
                 ))}
             </div>
         </div >
