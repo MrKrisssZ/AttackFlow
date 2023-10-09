@@ -18,6 +18,27 @@ const ReportDetails = ({ report, validated }) => {
         }
     }
 
+    const handleValidate = async() => {
+        const response = await fetch('/api/reports/' + report._id, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ validated: true }),
+        })
+        // const json = await response.json()
+
+        if (response.ok) {
+            // const updatedReport = await response.json();
+            // dispatch({ type: 'VALIDATE_REPORT', payload: updatedReport })
+            dispatch({ type: 'VALIDATE_REPORT', payload: report._id });
+        } 
+        else {
+            // Handle the error case
+            console.error('Validation failed:', response.status, response.statusText);
+        }
+    }
+
     // console.log('User Object: ', user)
     // console.log('User Role: ', userRole)
 
@@ -30,6 +51,9 @@ const ReportDetails = ({ report, validated }) => {
             <p className="text-sm text-gray-600"><strong>Validated: </strong>{report.validated.toString()}</p>
             <div className="flex justify-center rounded-md bg-gray w-24 mt-4">
                 <span onClick={handleClick} className="cursor-pointer bg-gray-200 rounded-full text-gray-600">delete</span>
+            </div>
+            <div className="flex justify-center rounded-md bg-gray w-24 mt-4">
+                <span onClick={handleValidate} className="cursor-pointer bg-gray-200 rounded-full text-gray-600">validate</span>
             </div>
             {/* {userRole === 'admin' && (
                 <>
