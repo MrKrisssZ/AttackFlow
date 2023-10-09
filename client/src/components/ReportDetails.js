@@ -40,10 +40,22 @@ const ReportDetails = ({ report, validated, withButton }) => {
   };
 
   const handleDownload = async () => {
-    const response = await fetch("/api/reports/" + report._id, {});
-    // const json = await response.json()
+    const response = await fetch("/api/reports/" + report._id, {
+      method: "GET",
+    });
+    const json = await response.json();
 
     if (response.ok) {
+      const annoData = json.annotations;
+      const jsonData = JSON.stringify(annoData, null, 2);
+      const blob = new Blob([jsonData], { type: "application/json" });
+      const downloadLink = document.createElement("a");
+      downloadLink.href = URL.createObjectURL(blob);
+      downloadLink.download = "annotation.json";
+      downloadLink.style.display = "none";
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
     }
   };
 
