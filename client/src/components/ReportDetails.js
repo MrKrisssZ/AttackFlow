@@ -39,6 +39,14 @@ const ReportDetails = ({ report, validated, withButton }) => {
     }
   };
 
+  const handleDownload = async () => {
+    const response = await fetch("/api/reports/" + report._id, {});
+    // const json = await response.json()
+
+    if (response.ok) {
+    }
+  };
+
   // console.log('User Object: ', user)
   // console.log('User Role: ', userRole)
 
@@ -81,6 +89,14 @@ const ReportDetails = ({ report, validated, withButton }) => {
               className="cursor-pointer bg-gray-200 rounded-full text-gray-600"
             >
               validate
+            </span>
+          </div>
+          <div className="flex justify-center rounded-md bg-gray w-24 mt-4">
+            <span
+              onClick={handleDownload}
+              className="cursor-pointer bg-gray-200 rounded-full text-gray-600"
+            >
+              download
             </span>
           </div>
         </>
