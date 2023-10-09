@@ -103,16 +103,16 @@ const ReportDetails = ({ report, validated, withButton }) => {
               validate
             </span>
           </div>
-          <div className="flex justify-center rounded-md bg-gray w-24 mt-4">
-            <span
-              onClick={handleDownload}
-              className="cursor-pointer bg-gray-200 rounded-full text-gray-600"
-            >
-              download
-            </span>
-          </div>
         </>
       )}
+      <div className="flex justify-center rounded-md bg-gray w-24 mt-4">
+        <span
+          onClick={handleDownload}
+          className="cursor-pointer bg-gray-200 rounded-full text-gray-600"
+        >
+          download
+        </span>
+      </div>
     </div>
   );
 };
