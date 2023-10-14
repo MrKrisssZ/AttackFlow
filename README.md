@@ -28,12 +28,12 @@ $ cd client
 $ npm install
 
 # Run the server on localhost:3000
-$ npm start
+$ npm start 
 ```
 
 Refer to `env.example` for environment variables.
 
-# Apple M1/M2 chips
+## Apple M1/M2 chips
 One of the library is not supported on Mac M1/M2 chips with following error message
 Bcrypt error on Mac - Incompatible architecture (have 'x86_64', need 'arm64e')
 
@@ -42,4 +42,15 @@ Bcrypt error on Mac - Incompatible architecture (have 'x86_64', need 'arm64e')
 $ sudo rm -rf node_modules package-lock.json
 $ yarn install
 $ yarn start
+```
+
+
+## Test script
+Run test script on the front-end:
+```bash
+# Go into the client folder
+$ cd client
+
+# Run command and press "a: once the prompt pops up
+$ npm run test
 ```
