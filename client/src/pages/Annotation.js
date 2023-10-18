@@ -5,7 +5,7 @@ import { Link, useLocation } from "react-router-dom";
 // components
 import DropdownMenu from "../components/DropDownMenu";
 import ReportForm from "../components/ReportForm";
-
+import '../Annotation.css'; // Import your CSS file
 const Annotation = () => {
   const { user } = useAuthContext();
   const location = useLocation();
@@ -39,23 +39,23 @@ const Annotation = () => {
   // }, [annotationsFromMenu]);
 
   return (
-    <div style={{ display: 'flex' }}>
+    <div className="annotation-container">
       {user && (
         <>
-          <div style={{ flex: 7, marginRight: "1rem" }}>
+          <div className="report-form">
             <ReportForm sendDescToParent={handleReportData} annotationsFromMenu={annotationsFromMenu} incidentDateFromMenu={incidentDateFromMenu}/>
           </div>
-          <div style={{ flex: 3 }}>
+          <div className="dropdown-menu">
             <DropdownMenu descFromReport={descFromReport} sendAnnotations={handleAnnotationsData} sendIncidentDate={handleIncidentDate}/>
           </div>
         </>
       )}
       {!user && (
         <>
-          <h3 className="text-lg font-semibold mb-4">Not signed in</h3>
+          <h3 className="login-message">Please</h3>
           <p>
             <Link to="/login" state={{ redirectTo: location }}>
-              <button className="text-primary">Login</button>
+              <button className="login-button">Login</button>
             </Link>{" "}
             to use the annotation function.
           </p>

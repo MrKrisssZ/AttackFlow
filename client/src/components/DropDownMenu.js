@@ -4,6 +4,7 @@ import { categoriesByTactics } from '../constants/index.tsx'
 import { techniqueByCategoriesEnterprise } from '../constants/enterprise.tsx'
 import { techniqueByCategoriesMobile } from '../constants/mobile.tsx'
 import { techniqueByCategoriesICS } from '../constants/ICS.tsx'
+import "../DropDownMenu.css"
 
 const DropdownMenu = ({descFromReport, sendAnnotations, sendIncidentDate }) => {
   const [incidentDate, setIncidentDate] = useState(new Date());
@@ -175,13 +176,11 @@ const DropdownMenu = ({descFromReport, sendAnnotations, sendIncidentDate }) => {
 
   return (
     <>
-      <div>
-        <h1>Annotation</h1>
-      </div>
+      <div className="annotation-header">Annotation</div>
       <div>
         <form onSubmit={handleAdd}>
           <div>
-            <label>Incident date: </label>
+          <label className="label">Incident date: </label>
             <input 
               type='date' 
               id='incidentDate' 
@@ -190,9 +189,10 @@ const DropdownMenu = ({descFromReport, sendAnnotations, sendIncidentDate }) => {
               onChange={(e) => setIncidentDate(e.target.value)}
             />
           </div>
-          <div>
-            <p>Type</p>
+          <div className="dropdown-container">
+          <label className="label">Type</label>
             <select
+              className="input-select"
               value={type}
               onChange={(e) => setType(e.target.value)}
               name="type"
@@ -222,9 +222,10 @@ const DropdownMenu = ({descFromReport, sendAnnotations, sendIncidentDate }) => {
               <option value="vulnerability">Vulnerability</option>
             </select>
           </div>
-          <div>
-            <p>Tactics</p>
+          <div className="dropdown-container">
+          <label className="label">Tactics</label>
             <select
+              className="input-select"
               value={tactics}
               onChange={(e) => setTactics(e.target.value)}
               name="tactics"
@@ -236,9 +237,10 @@ const DropdownMenu = ({descFromReport, sendAnnotations, sendIncidentDate }) => {
               <option value="ICS">ICS</option>
             </select>
           </div>
-          <div>
-            <p>Categories</p>
+          <div className="dropdown-container">
+          <label className="label">Categories</label>
             <select
+              className="input-select"
               defaultValue={categories}
               onChange={(e) => setCategories(e.target.value)}
               name="categories"
@@ -247,9 +249,10 @@ const DropdownMenu = ({descFromReport, sendAnnotations, sendIncidentDate }) => {
               {categoryOptions}
             </select>
           </div>
-          <div>
-            <p>Techniques</p>
+          <div className="dropdown-container">
+          <label className="label">Techniques</label>
             <select
+              className="input-select"
               defaultValue={techniques}
               onChange={(e) => setTechniques(e.target.value)}
               name="subtechniques"
@@ -258,14 +261,14 @@ const DropdownMenu = ({descFromReport, sendAnnotations, sendIncidentDate }) => {
               {techniqueOptions}
             </select>
           </div>
-          <button type="submit">Add</button>
+          <button className="add-button" type="submit">Add</button>
         </form>
       </div>
-      <div>
-        <h1>Stored annotation</h1>
+      <div className="stored-annotations">
+        <h1>Stored annotations</h1>
         <ol>
           {annotations.map((annotation, index) => (
-            <li key={index}>
+            <li className="annotation-item" key={index}>
               <strong>Description: </strong>{ annotation.desc }<br />
               <strong>Type: </strong>{ annotation.type }<br />
               <strong>Specification Version: </strong>{ annotation.spec_version }<br />
@@ -275,11 +278,11 @@ const DropdownMenu = ({descFromReport, sendAnnotations, sendIncidentDate }) => {
               <strong>Tactics: </strong>{ annotation.tactics }<br />
               <strong>Categories: </strong>{ annotation.categories }<br />
               <strong>Techniques: </strong>{ annotation.techniques }<br />
-              <button onClick={() => handleRemove(index)}>Remove</button>
+              <button className="remove-button" onClick={() => handleRemove(index)}>Remove</button>
             </li>
           ))}
         </ol>
-        <button className="text-primary" onClick={ handleFinish }>Finish Annotation</button>
+        <button className="finish-button" onClick={ handleFinish }>Finish Annotation</button>
       </div>
     </>
   );
