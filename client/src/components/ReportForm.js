@@ -7,6 +7,7 @@ import "@react-pdf-viewer/default-layout/lib/styles/index.css";
 
 import MessageModal from "./MessageModal";
 import { useAuthContext } from '../hooks/UseAuthContext'
+import "../ReportForm.css"
 
 import {
   HighlightArea,
@@ -393,8 +394,10 @@ const ReportForm = ({ sendDescToParent, annotationsFromMenu, incidentDateFromMen
         message={modalMessage}
         onRequestClose={() => setIsModalOpen(false)}
       />
-      <h2>View PDF</h2>
+      <div className="ViewPDF">View PDF</div>
+      <h2></h2>
       <div className="viewer">
+      
         {pdfFile && (
           <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js">
             <Viewer fileUrl={pdfFile} plugins={[newplugin, highlightPluginInstance]} onDocumentLoad={handleDocumentLoad}></Viewer>
