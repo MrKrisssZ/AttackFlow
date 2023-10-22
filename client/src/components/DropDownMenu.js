@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid'
 import { useState, useMemo, useEffect } from "react";
 import { categoriesByTactics } from '../constants/index.tsx'
 import { techniqueByCategoriesEnterprise } from '../constants/enterprise.tsx'
@@ -10,6 +11,8 @@ const DropdownMenu = ( descFromReport ) => {
   const [categories, setCategories] = useState("");
   const [techniques, setTechniques] = useState("");
   const [annotations, setAnnotations] = useState([]);
+  const [type, setType] = useState("Default")
+  const [_id] = useState("")
 
   const categoryOptions = useMemo(() => {
     if (!tactics) {
@@ -34,7 +37,7 @@ const DropdownMenu = ( descFromReport ) => {
         </option>
       ));
     }
-    // To-do: create other conditions for the techniques for all different tactics
+    // create other conditions for the techniques for all different tactics
     // tactics: Enterprise
     if (
       tactics === "Enterprise" &&
@@ -105,17 +108,30 @@ const DropdownMenu = ( descFromReport ) => {
     }
   }, [tactics, categories]);
 
+  const generateUniqueID = () => {
+    const uniqueID = uuidv4();
+    return type + '--' + uniqueID
+  }
+
   // add the selected text and other attributes to annotations
   const handleAdd = (e) => {
     e.preventDefault();
     // console.log('tactics: ', tactics, 'categories: ', categories, 'techniques: ', techniques);
     // console.log('descFromParent', descFromReport.desc)
-    if (descFromReport.desc && tactics && categories && techniques) {
+    if (descFromReport.desc && type && tactics && categories && techniques) {
+      const currTime = new Date()
+      const formattedTime = currTime.toISOString()
+
       const annotation = {
-        desc: descFromReport.desc,
+        type,
+        spec_version: '2.1',
+        created: formattedTime,
+        modified: formattedTime,
+        id: generateUniqueID(),        
         tactics,
         categories,
         techniques,
+        desc: descFromReport.desc
       }
       // add new annotation to the list
       setAnnotations([...annotations, annotation]);
@@ -135,9 +151,9 @@ const DropdownMenu = ( descFromReport ) => {
     setAnnotations(updatedAnnotations)
   }
 
-  useEffect(() => {
-    console.log('handleClick', annotations);
-  }, [annotations]);
+  // useEffect(() => {
+  //   console.log('handleClick', annotations);
+  // }, [annotations]);
 
   return (
     <>
@@ -148,7 +164,45 @@ const DropdownMenu = ( descFromReport ) => {
         <form onSubmit={handleAdd}>
           <div>
             <label>Incident date: </label>
-            <input type='date' id='incidentDate' onChange={(e) => setIncidentDate(e.target.value)} />
+            <input 
+              type='date' 
+              id='incidentDate' 
+              max={new Date().toISOString().split('T')[0]} 
+              value={incidentDate}
+              onChange={(e) => setIncidentDate(e.target.value)}
+            />
+          </div>
+          <div>
+            <p>Type</p>
+            <select
+              defaultValue={type}
+              onChange={(e) => setType(e.target.value)}
+              name="type"
+              id="type"
+            >
+              <option value="Default">Type</option>
+              <option value="attach-pattern">Attack Pattern</option>
+              <option value="campaign">Campaign</option>
+              <option value="course-of-action">Cost of Action</option>
+              <option value="grouping">Grouping</option>
+              <option value="identity">Identity</option>
+              <option value="incident">Incident</option>
+              <option value="indicator">Indicator</option>
+              <option value="infrastructure">Infrastructure</option>
+              <option value="intrusion-set">Intrusion Set</option>
+              <option value="indicator">Indicator</option>
+              <option value="location">Location</option>
+              <option value="malware">Malware</option>
+              <option value="location">Location</option>
+              <option value="malware-analysis">Malware Analysis</option>
+              <option value="note">Note</option>
+              <option value="observed-data">Observed Data</option>
+              <option value="opinion">Opinion</option>
+              <option value="report">Report</option>
+              <option value="threat-actor">Threat Actor</option>
+              <option value="tool">Tool</option>
+              <option value="vulnerability">Vulnerability</option>
+            </select>
           </div>
           <div>
             <p>Tactics</p>
@@ -194,10 +248,15 @@ const DropdownMenu = ( descFromReport ) => {
         <ol>
           {annotations.map((annotation, index) => (
             <li key={index}>
-              <strong>Description:</strong>{ annotation.desc }<br />
-              <strong>Tacttics:</strong>{ annotation.tactics }<br />
-              <strong>Categories:</strong>{ annotation.categories }<br />
-              <strong>Techniques:</strong>{ annotation.techniques }<br />
+              <strong>Description: </strong>{ annotation.desc }<br />
+              <strong>Type: </strong>{ annotation.type }<br />
+              <strong>Specification Version: </strong>{ annotation.spec_version }<br />
+              <strong>ID: </strong>{ annotation.id }<br />
+              <strong>Created: </strong>{ annotation.created }<br />
+              <strong>Modified: </strong>{ annotation.modified }<br />
+              <strong>Tactics: </strong>{ annotation.tactics }<br />
+              <strong>Categories: </strong>{ annotation.categories }<br />
+              <strong>Techniques: </strong>{ annotation.techniques }<br />
               <button onClick={() => handleRemove(index)}>Remove</button>
             </li>
           ))}
