@@ -5,14 +5,13 @@ import { techniqueByCategoriesEnterprise } from '../constants/enterprise.tsx'
 import { techniqueByCategoriesMobile } from '../constants/mobile.tsx'
 import { techniqueByCategoriesICS } from '../constants/ICS.tsx'
 
-const DropdownMenu = ( descFromReport ) => {
+const DropdownMenu = ({ descFromReport, sendAnnotations, sendIncidentDate }) => {
   const [incidentDate, setIncidentDate] = useState(new Date());
   const [tactics, setTactics] = useState("Default");
   const [categories, setCategories] = useState("");
   const [techniques, setTechniques] = useState("");
   const [annotations, setAnnotations] = useState([]);
   const [type, setType] = useState("Default")
-  const [_id] = useState("")
 
   const categoryOptions = useMemo(() => {
     if (!tactics) {
@@ -117,8 +116,8 @@ const DropdownMenu = ( descFromReport ) => {
   const handleAdd = (e) => {
     e.preventDefault();
     // console.log('tactics: ', tactics, 'categories: ', categories, 'techniques: ', techniques);
-    // console.log('descFromParent', descFromReport.desc)
-    if (descFromReport.desc && type && tactics && categories && techniques) {
+    // console.log('descFromParent', descFromReport)
+    if (descFromReport && type && tactics && categories && techniques) {
       const currTime = new Date()
       const formattedTime = currTime.toISOString()
 
@@ -127,19 +126,20 @@ const DropdownMenu = ( descFromReport ) => {
         spec_version: '2.1',
         created: formattedTime,
         modified: formattedTime,
-        id: generateUniqueID(),        
+        id: generateUniqueID(),
         tactics,
         categories,
         techniques,
-        desc: descFromReport.desc
+        desc: descFromReport
       }
       // add new annotation to the list
       setAnnotations([...annotations, annotation]);
 
       // reset form fields
-      setTactics('Default');
-      setCategories('');
-      setTechniques('');
+      setTactics("Default")
+      setCategories("")
+      setTechniques("")
+      setType("Default")
     }
   };
 
@@ -155,6 +155,24 @@ const DropdownMenu = ( descFromReport ) => {
   //   console.log('handleClick', annotations);
   // }, [annotations]);
 
+  // send the annotations to the report
+  const handleFinish = () => {
+    // console.log('sending annotations to parent', annotations)
+    sendAnnotations(annotations)
+    sendIncidentDate(incidentDate)
+
+    // reset form fields
+    setIncidentDate(new Date())
+    setTactics("Default")
+    setCategories("")
+    setTechniques("")
+    setType("Default")
+  }
+
+  // useEffect(() => {
+  //   console.log('handleClick', annotations);
+  // }, [annotations]);
+
   return (
     <>
       <div>
@@ -164,10 +182,10 @@ const DropdownMenu = ( descFromReport ) => {
         <form onSubmit={handleAdd}>
           <div>
             <label>Incident date: </label>
-            <input 
-              type='date' 
-              id='incidentDate' 
-              max={new Date().toISOString().split('T')[0]} 
+            <input
+              type='date'
+              id='incidentDate'
+              max={new Date().toISOString().split('T')[0]}
               value={incidentDate}
               onChange={(e) => setIncidentDate(e.target.value)}
             />
@@ -175,7 +193,7 @@ const DropdownMenu = ( descFromReport ) => {
           <div>
             <p>Type</p>
             <select
-              defaultValue={type}
+              value={type}
               onChange={(e) => setType(e.target.value)}
               name="type"
               id="type"
@@ -207,7 +225,7 @@ const DropdownMenu = ( descFromReport ) => {
           <div>
             <p>Tactics</p>
             <select
-              defaultValue={tactics}
+              value={tactics}
               onChange={(e) => setTactics(e.target.value)}
               name="tactics"
               id="tactics"
@@ -248,19 +266,20 @@ const DropdownMenu = ( descFromReport ) => {
         <ol>
           {annotations.map((annotation, index) => (
             <li key={index}>
-              <strong>Description: </strong>{ annotation.desc }<br />
-              <strong>Type: </strong>{ annotation.type }<br />
-              <strong>Specification Version: </strong>{ annotation.spec_version }<br />
-              <strong>ID: </strong>{ annotation.id }<br />
-              <strong>Created: </strong>{ annotation.created }<br />
-              <strong>Modified: </strong>{ annotation.modified }<br />
-              <strong>Tactics: </strong>{ annotation.tactics }<br />
-              <strong>Categories: </strong>{ annotation.categories }<br />
-              <strong>Techniques: </strong>{ annotation.techniques }<br />
+              <strong>Description: </strong>{annotation.desc}<br />
+              <strong>Type: </strong>{annotation.type}<br />
+              <strong>Specification Version: </strong>{annotation.spec_version}<br />
+              <strong>ID: </strong>{annotation.id}<br />
+              <strong>Created: </strong>{annotation.created}<br />
+              <strong>Modified: </strong>{annotation.modified}<br />
+              <strong>Tactics: </strong>{annotation.tactics}<br />
+              <strong>Categories: </strong>{annotation.categories}<br />
+              <strong>Techniques: </strong>{annotation.techniques}<br />
               <button onClick={() => handleRemove(index)}>Remove</button>
             </li>
           ))}
         </ol>
+        <button className="text-primary" onClick={handleFinish}>Finish Annotation</button>
       </div>
     </>
   );

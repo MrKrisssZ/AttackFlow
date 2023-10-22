@@ -6,7 +6,7 @@ const Visualization = () => {
         <iframe
           src="https://center-for-threat-informed-defense.github.io/attack-flow/ui/"
           width="100%"
-          height="500px"
+          height="800px"
         ></iframe>
       </main>
     </>

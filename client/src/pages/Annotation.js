@@ -11,26 +11,42 @@ const Annotation = () => {
   const location = useLocation();
 
   // writing annotation file
-  const [ descFromReport, setDescFromReport ] = useState('')
+  const [ descFromReport, setDescFromReport ] = useState({ desc: '' })
+  const [ annotationsFromMenu, setAnnotationsFromMenu ] = useState([])
+  const [ incidentDateFromMenu, setIncidentDateFromMenu ] = useState(new Date())
 
   const handleReportData = (reportData) => {
     setDescFromReport(reportData)
     // console.log('report data from child',descFromReport)
   }
 
+  const handleAnnotationsData = (annotationData) => {
+    setAnnotationsFromMenu(annotationData)
+    // console.log('annotation data from child', annotationsFromMenu);
+  };
+
+  const handleIncidentDate = (incidentDate) => {
+    setIncidentDateFromMenu(incidentDate)
+    console.log('incident date from child', incidentDateFromMenu)
+  }
+
   // useEffect(() => {
   //   console.log('descFromReport useEffect', descFromReport);
   // }, [descFromReport]);
+
+  // useEffect(() => {
+  //   console.log('annotationsFromMenu useEffect', annotationsFromMenu);
+  // }, [annotationsFromMenu]);
 
   return (
     <div style={{ display: 'flex' }}>
       {user && (
         <>
           <div style={{ flex: 7, marginRight: "1rem" }}>
-            <ReportForm sendDescToParent={handleReportData}></ReportForm>
+            <ReportForm sendDescToParent={handleReportData} annotationsFromMenu={annotationsFromMenu} incidentDateFromMenu={incidentDateFromMenu}/>
           </div>
           <div style={{ flex: 3 }}>
-            <DropdownMenu desc={descFromReport}></DropdownMenu>
+            <DropdownMenu descFromReport={descFromReport} sendAnnotations={handleAnnotationsData} sendIncidentDate={handleIncidentDate}/>
           </div>
         </>
       )}

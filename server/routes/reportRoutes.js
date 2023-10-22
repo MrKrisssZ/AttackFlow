@@ -5,7 +5,8 @@ const {
     getReport,
     createReport,
     deleteReport,
-    updateReport
+    updateReport,
+    validateReport
  } = require('../controllers/reportController')
 
 const router = express.Router()
@@ -24,6 +25,9 @@ router.delete('/:id', deleteReport)
 
 // UPDATE a report
 router.patch('/:id', updateReport)
+
+// VALIDATE a report
+router.patch('/:id', validateReport)
 
 // express server
 module.exports = router

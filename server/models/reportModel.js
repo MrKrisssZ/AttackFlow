@@ -14,7 +14,10 @@ const reportSchema = new Schema({
     validated: {
         type: Boolean,
         default: false,
-    }
+    },
+    annotations: {
+        type: Object,
+    },
 },
     // { timestamps: true }
     {
